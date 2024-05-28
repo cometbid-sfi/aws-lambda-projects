@@ -1,0 +1,13 @@
+## YAML Template.
+---
+amazon:
+  aws:
+    accesskey: key
+    secretkey: secret
+    region: fakeRegion
+
+application:
+  dynamodb:
+    endpoint: http://localhost:8000
+    customer_table: customers
+    

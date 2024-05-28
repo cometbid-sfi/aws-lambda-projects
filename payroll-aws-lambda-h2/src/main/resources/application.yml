@@ -1,0 +1,85 @@
+## YAML Template.
+---
+spring:
+  application.name: payroll-service
+  lifecycle.timeout-per-shutdown-phase: 30s
+  jackson:
+    default-property-inclusion: non-default
+    serialization:
+      indent-output: true
+  profiles:
+    active: dev #,prod
+  main: 
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:h2:mem:employee 
+    driverClassName: org.h2.Driver   
+    username: sa
+    password:
+  h2:
+    console.enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties.hibernate.jdbc.time_zone: UTC
+    defer-datasource-initialization: true
+    hibernate.ddl-auto: create-drop
+
+springdoc:
+  # swagger-ui custom path
+  swagger-ui:
+    path: /api/v1/api-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    enabled: true
+    
+  # /api-docs endpoint custom path
+  api-docs:
+    path: /api/v1/api-docs
+    enabled: true
+    # Packages to include
+    groups:
+      enabled: true 
+  packagesToScan: org.cometbid.kubeforce.payroll.employee
+  pathsToMatch: /api/**
+    
+local.server.apidoc.url: https://${spring.application.name}/api/v1/api-ui.html
+test.server.apidoc.url: https://${spring.application.name}/api/v1/api-ui.html
+
+api:
+  common:
+    version: 1.0.0    
+    documentation: http://api.cometbid.org/payroll/api/v1/api-ui.html
+    help: https://api.cometbid.org/wiki/display/APIS/commonly-asked
+    reportError: https://sendreport.cometbid.org
+    technicalReport: 'Email us at: developers@cometbid.org'
+    title: Cometbid Payroll Sample API
+    description: Description of the API...
+    termsOfService: Our TERMS OF SERVICE
+    license: The MIT License 
+    licenseUrl: https://opensource.org/license/mit
+
+    externalDocDesc: Payroll ReadMe & User guide
+    externalDocUrl: https://github.com/cometbid-sfi/payroll/blob/main/README.md
+    contact:
+      name: Adebowale Oluwagbemiga Samuel
+      url: https://cometbid.org/
+      email: cometbid@cometbid.org
+    response:
+      includeMetadata: true
+      
+  default:
+    currency: USD
+    locale: en_US
+    timezone: America/New_York
+    
+  responseCodes:
+    ok.description: OK(Success)
+    created.description: Resource Created
+    badRequest.description: Bad Request due to invalid format of the request. See response message for more information
+    unauthorized.description: Unauthorized
+    forbidden.description: Forbidden
+    server.error.description: Server Failure
+    notFound.description: Not found, the specified id does not exist
+    conflict.description: Resource conflict, similar resource already exist
+    server.unavailable.description: Service Unavailable
+    unprocessableEntity.description: Unprocessable entity, input parameters caused the processing to fail. See response message for more information
